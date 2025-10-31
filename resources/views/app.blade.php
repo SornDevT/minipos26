@@ -20,6 +20,7 @@
     
     <link rel="stylesheet" href="../assets/vendor/css/core.css">
     <link rel="stylesheet" href="../assets/css/demo.css">
+    <link rel="stylesheet" href="../assets/css/font_lao.css">
 
     
     <!-- Vendors CSS -->

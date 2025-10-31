@@ -1,0 +1,63 @@
+System POS 
+
+All table:
+- Product
+- Category
+- Transection 
+- Bill 
+- BillItem
+- User 
+
+
+
+Tabel Detail: 
+
+    1. Table: Product  (Model)
+    Fill Name       Data Type 
+    - ProductName   string     = ຊື່ສິນຄ້າ
+    - CategiryID    integer    = id ໝວດໝູ່ ສິນຄ້າ
+    - ImagePath     string     = ເສັ້ນທາງຮູບພາບ 
+    - Qty           integer    = ຈຳນວນສິນຄ້າ
+    - PriceBuy      integer    = ລາຄາຊື້
+    - PriceSell     integer    = ລາຄາຂາຍ
+
+    2. Table: Category  (Model)
+    Fill Name       Data Type 
+    - CategoryName  string    = ຊື່ໝວດໝູ່ ສິນຄ້າ
+
+    3. Table: Transection  (Model)
+    Fill Name       Data Type 
+    - TrabID        string      = ລະຫັດທຸລະກຳ
+    - TranType      string      = ປະເພດທຸລະກຳ
+    - ProductID     integer     = ລະຫັດສິນຄ້າ
+    - Qty           integer     = ຈຳນວນສິນຄ້າ 
+    - Price         integer     = ລາຄາສິນຄ້າ 
+    - Detail        string      = ລາຍລະອຽດເພີ່ມ
+
+    4. Table: Bill  (Model)
+    Fill Name       Data Type 
+    - BillID        string      = ລະຫັດໃບບິນ 
+    - CustomerName  string      = ຊື່ລູກຄ້າ
+    - PhoneNumber   string      = ເບີໂທລູກຄ້າ
+
+     5. Table: BillItem  (Model)
+    Fill Name       Data Type 
+    - BillID        string      = ລະຫັດໃບບິນ
+    - ItemName      string      = ຊື່ລາຍການ ໃບບິນ
+    - Qty           integer     = ຈຳນວນ 
+    - Price         integer     = ລາຄາ 
+
+    6. Table: User  (Model)
+    Fill Name       Data Type 
+    - UserName      string      = ຊື່ຜູ້ໃຊ້
+    - email         string      = ອີເມວຜູ້ໃຊ້ 
+    - password      string      = ລະຫັດຜ່ານ
+
+
+All Controller 
+
+    - ProductController     = ຈັດການຂໍ້ມູນສິນຄ້າ
+    - CategoryController    = ຈັດການໝວດໝູ່ສິນຄ້າ
+    - TransectionController = ຈັດກຂໍ້ມູນ ການເຄື່ອນໄຫວ 
+    - BillController        = ຈັດການກ່ຽວກັບໃບບິນ
+    - ReportController      = ຈັດການກ່ຽວກັບລາຍງານ
