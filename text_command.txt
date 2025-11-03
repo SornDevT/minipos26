@@ -8,6 +8,7 @@ Laravel
     - php artisan route:cache  : ຄຳສັ່ງເຄຼຍ Route Cache
     - php artisan migrate  : ຄຳສັ່ງ ທຳການ Migrate ສ້າງຕາຕະລາງ
     - php artisan install:api   = ຕິດຕັ້ງ api ຂອງ Laravel
+    - php artisan jwt:secret  = ຄຳສັ່ງ gen jwt secret
 
 
 VueJS
