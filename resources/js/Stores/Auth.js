@@ -3,8 +3,8 @@ import { defineStore } from 'pinia';
 export const useAuthStore = defineStore('auth', {
     state: () => ({
         user: JSON.parse(localStorage.getItem('user')) || null,
-        // token: localStorage.getItem('token') || null,
-        token: '54325342543254354',
+        token: localStorage.getItem('token') || null,
+        // token: "hshgu35365erhg4564er6g84re86ger",
     }),
     getters: {
         isAuthenticated: (state) => !!state.token, // ຖ້າມີ true, ບໍ່ມີ false

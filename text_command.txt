@@ -9,6 +9,8 @@ Laravel
     - php artisan migrate  : ຄຳສັ່ງ ທຳການ Migrate ສ້າງຕາຕະລາງ
     - php artisan install:api   = ຕິດຕັ້ງ api ຂອງ Laravel
     - php artisan jwt:secret  = ຄຳສັ່ງ gen jwt secret
+    - php artisan make:seeder "ຊື່ seeder"
+    - php artisan db:seed     = run seeder ເພື່ອສ້າງຂໍ້ມູນ
 
 
 VueJS

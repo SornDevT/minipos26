@@ -6,13 +6,18 @@
     </div>
 </template>
 <script>
-import { useAuthStore } from '../Store/Auth';
+import { useAuthStore } from '../Stores/Auth';
 
 export default {
     setup() {
         const authStore = useAuthStore();
         return { authStore };
-    }
+    },
+    data() {
+        return {
+            
+        }
+    },
 }
 </script>
 <style lang="">
