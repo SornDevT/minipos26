@@ -107,7 +107,7 @@
             <div class="dropdown-divider my-1"></div>
           </li>
           <li>
-            <a class="dropdown-item" href="javascript:void(0);"> <i class="icon-base bx bx-power-off icon-md me-3"></i><span>Log Out</span> </a>
+            <a class="dropdown-item" href="javascript:void(0);" @click="Logout()"> <i class="icon-base bx bx-power-off icon-md me-3"></i><span>ອອກຈາກລະບົບ</span> </a>
           </li>
         </ul>
       </li>
@@ -182,13 +182,35 @@
 
 </template>
 <script>
-
+import axios from 'axios';
 import { useAuthStore } from './Stores/Auth';
 
 export default {
     setup() {
         const authStore = useAuthStore();
         return { authStore };
+    },
+    methods: {
+        Logout() {
+            
+            axios.get('/api/logout',{
+                headers: {
+                  Authorization: `Bearer ${this.authStore.getToken}`
+                }
+            }).then(response => {
+
+              if(response.data.success){
+                this.authStore.logout();
+                this.$router.push({ name: 'Login' });
+              } else {
+                console.log('Logout failed:', response.data.message);
+              }
+          
+            }).catch(error => {
+                console.error('Logout error:', error);
+            });
+
+        }
     }
 }
 </script>
