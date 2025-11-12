@@ -5,13 +5,44 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Category;
 
 class ProductController extends Controller
 {
     // ✅ GET /products
     public function index()
     {
-        $products = Product::orderBy('id', 'asc')->get();
+
+       $sort = \Request::get('sort', 'asc');
+       $perPage = \Request::get('perPage');
+       $search = \Request::get('search', '');
+       $categoryFilter = \Request::get('category', 'all'); 
+
+        // join with categories to get CategoryName ande select products with category name
+        $products = Product::join('categories', 'products.CategoryID', '=', 'categories.id')
+        ->select('products.*', 'categories.CategoryName');
+
+        // category filter
+        if ($categoryFilter !== 'all') {
+            $products = $products->where('products.CategoryID', $categoryFilter);
+        }
+
+        // search filter
+        if ($search !=='') {
+            $products = $products->where(
+                function($query) use ($search) {
+                    $query->where('products.ProductName', 'like', '%' . $search . '%')
+                          ->orWhere('categories.CategoryName', 'like', '%' . $search . '%')
+                          ->orWhere('products.PriceBuy', 'like', '%' . $search . '%')
+                          ->orWhere('products.PriceSell', 'like', '%' . $search . '%');
+                }
+            );
+        }
+
+
+       $products = $products->orderBy('products.id', $sort)
+       ->paginate($perPage);
+
         return response()->json($products);
     }
 
