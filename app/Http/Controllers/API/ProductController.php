@@ -53,18 +53,18 @@ class ProductController extends Controller
 
             // ✅ Image Upload (optional)
             $imagePath = null;
-
-            if ($request->hasFile('image')) {
-                $file = $request->file('image');
+            $imageName = '';
+            if ($request->hasFile('ImagePath')) {
+                $file = $request->file('ImagePath');
                 $imageName = time() . '_' . $file->getClientOriginalName();
-                $file->move(public_path('uploads/products'), $imageName);
-                $imagePath = 'uploads/products/' . $imageName;
+                $file->move(public_path('assets/img/products/'), $imageName);
+                $imagePath = 'assets/img/products/' . $imageName;
             }
 
             $product = new Product();
             $product->ProductName = $request->ProductName;
             $product->CategoryID = $request->CategoryID;
-            $product->ImagePath = $imagePath;
+            $product->ImagePath = $imageName;
             $product->Qty = $request->Qty;
             $product->PriceBuy = $request->PriceBuy;
             $product->PriceSell = $request->PriceSell;

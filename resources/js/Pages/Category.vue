@@ -112,8 +112,21 @@ export default {
                         $('#ModalAddCat').modal('hide');
                         this.CategoryName = '';
                         this.GetCat();
+                        this.$swal({
+                                toast: true,
+                                position: "top-end",
+                                icon: "success",
+                                title: response.data.message,
+                                showConfirmButton: false,
+                                timer: 2000
+                            });
                     } else {
-                        console.log('Failed to add category:', response.data.message);
+                        // console.log('Failed to add category:', response.data.message);
+                        this.$swal({
+                                title: "ຜິດຜາດ!",
+                                text: response.data.message,
+                                icon: "error",
+                        });
                     }
                     
 
@@ -136,9 +149,22 @@ export default {
                         $('#ModalAddCat').modal('hide');
                         this.CategoryName = '';
                         this.GetCat();
+                        this.$swal({
+                                toast: true,
+                                position: "top-end",
+                                icon: "success",
+                                title: response.data.message,
+                                showConfirmButton: false,
+                                timer: 2000
+                            });
 
                     } else {
-                        console.log('Failed to update category:', response.data.message);
+                        // console.log('Failed to update category:', response.data.message);
+                        this.$swal({
+                                title: "ຜິດຜາດ!",
+                                text: response.data.message,
+                                icon: "error",
+                        });
                     }
                     
 
@@ -151,6 +177,20 @@ export default {
         },
         DeleteCat(id){
          
+
+             this.$swal({
+            title: "ທ່ານແນ່ໃຈບໍ່?",
+            text: "ທີ່ຈະລຶບຂໍ້ມູນນີ້!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "ແມ່ນ, ລຶບມັນ!",
+            cancelButtonText: "ຍົກເລີກ"
+            }).then((result) => {
+            if (result.isConfirmed) {
+
+
                 // ລຶບໝວດໝູ່
                 axios.delete('/api/categories/delete/' + id ,{
                     headers: {
@@ -159,14 +199,30 @@ export default {
                 }).then(response => {
                     if(response.data.success){
                         this.GetCat();
+                        this.$swal({
+                                toast: true,
+                                position: "top-end",
+                                icon: "success",
+                                title: response.data.message,
+                                showConfirmButton: false,
+                                timer: 2000
+                            });
                     } else {
-                        console.log('Failed to delete category:', response.data.message);
+                        // console.log('Failed to delete category:', response.data.message);
+                        this.$swal({
+                                title: "ຜິດຜາດ!",
+                                text: response.data.message,
+                                icon: "error",
+                        });
                     }
                     
 
                 }).catch(error => {
                     console.error('Error deleting category:', error);
                 });
+
+            }
+            });
       
         },
         GetCat(){
