@@ -39,9 +39,14 @@ class ProductController extends Controller
             );
         }
 
+        if($perPage === 'all' ){
+            $products = $products->orderBy('products.id', $sort)->get();
+        } else {
+             $products = $products->orderBy('products.id', $sort)
+            ->paginate($perPage);
+        }
 
-       $products = $products->orderBy('products.id', $sort)
-       ->paginate($perPage);
+      
 
         return response()->json($products);
     }
@@ -106,17 +111,25 @@ class ProductController extends Controller
             }
 
             // ✅ Update new image if uploaded
-            if ($request->hasFile('image')) {
+            if ($request->hasFile('ImagePath')) {
 
                 // delete old image
-                if ($product->ImagePath && file_exists(public_path($product->ImagePath))) {
-                    unlink(public_path($product->ImagePath));
+                if ($product->ImagePath && file_exists(public_path('assets/img/products/'.$product->ImagePath))) {
+                    unlink(public_path('assets/img/products/'.$product->ImagePath));
                 }
 
-                $file = $request->file('image');
+                $file = $request->file('ImagePath');
                 $imageName = time() . '_' . $file->getClientOriginalName();
-                $file->move(public_path('uploads/products'), $imageName);
-                $product->ImagePath = 'uploads/products/' . $imageName;
+                $file->move(public_path('assets/img/products/'), $imageName);
+                $product->ImagePath = $imageName; // update image path
+            }
+
+            if($request->ImagePath === null){
+                // delete old image
+                if ($product->ImagePath && file_exists(public_path('assets/img/products/'.$product->ImagePath))) {
+                    unlink(public_path('assets/img/products/'.$product->ImagePath));
+                }
+                $product->ImagePath = null; // remove image path
             }
 
             $product->ProductName = $request->ProductName;

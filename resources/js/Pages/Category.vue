@@ -95,6 +95,10 @@ export default {
                 $('#ModalAddCat').modal('show');
             }).catch(error => {
                 console.error('Error fetching category:', error);
+                if(error && error.response.status === 401){
+                    this.authStore.logout();
+                    this.$router.push({ name: 'Login' });
+                }
             });
         },
         SaveCat(){
@@ -132,6 +136,10 @@ export default {
 
                 }).catch(error => {
                     console.error('Error adding category:', error);
+                    if(error && error.response.status === 401){
+                    this.authStore.logout();
+                    this.$router.push({ name: 'Login' });
+                }
                 });
 
             } else {
@@ -170,6 +178,10 @@ export default {
 
                 }).catch(error => {
                     console.error('Error updating category:', error);
+                    if(error && error.response.status === 401){
+                    this.authStore.logout();
+                    this.$router.push({ name: 'Login' });
+                }
                 });
 
             }
@@ -219,6 +231,10 @@ export default {
 
                 }).catch(error => {
                     console.error('Error deleting category:', error);
+                    if(error && error.response.status === 401){
+                    this.authStore.logout();
+                    this.$router.push({ name: 'Login' });
+                }
                 });
 
             }
@@ -235,6 +251,10 @@ export default {
                 this.CategoryList = response.data;
             }).catch(error => {
                 console.error('Error fetching categories:', error);
+                if(error && error.response.status === 401){
+                    this.authStore.logout();
+                    this.$router.push({ name: 'Login' });
+                }
             });
         }
     },

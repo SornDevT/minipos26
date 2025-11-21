@@ -255,9 +255,20 @@ export default {
                 }
             }).then((response) => {
                 this.FormProduct = response.data;
+
+                // update image preview
+                if(this.FormProduct.ImagePath){
+                    this.ImagePreview = this.url + '/assets/img/products/' + this.FormProduct.ImagePath;
+                } else {
+                    this.ImagePreview = this.url + '/assets/img/upload_img.jpg';
+                }
                 $('#StoreModal').modal('show');
             }).catch((error) => {
                 console.error('Error fetching product details:', error);
+                if(error && error.response.status === 401){
+                    this.authStore.logout();
+                    this.$router.push({ name: 'Login' });
+                }
             });
         },
         SaveProduct(){
@@ -271,6 +282,7 @@ export default {
                            
                             console.log('Product added successfully:', response.data);
                             $('#StoreModal').modal('hide');
+                            
                             this.GetProducts();
 
                             this.$swal({
@@ -296,6 +308,10 @@ export default {
 
                 }).catch(error => {
                     console.error('Error adding product:', error);
+                    if(error && error.response.status === 401){
+                        this.authStore.logout();
+                        this.$router.push({ name: 'Login' });
+                    }
                 }); 
 
             }else{
@@ -331,6 +347,10 @@ export default {
 
                 }).catch(error => {
                     console.error('Error updating product:', error);
+                    if(error && error.response.status === 401){
+                    this.authStore.logout();
+                    this.$router.push({ name: 'Login' });
+                }
                 });
             }
         },
@@ -375,6 +395,10 @@ export default {
                     }
                 }).catch((error) => {
                     console.error('Error deleting product:', error);
+                    if(error && error.response.status === 401){
+                        this.authStore.logout();
+                        this.$router.push({ name: 'Login' });
+                    }
                 });
 
             }
@@ -394,6 +418,10 @@ export default {
                 this.ProductsList = response.data;
             }).catch((error) => {
                 console.error('Error fetching products:', error);
+                if(error && error.response.status === 401){
+                    this.authStore.logout();
+                    this.$router.push({ name: 'Login' });
+                }
             });
         },
         GetCate(){
@@ -406,7 +434,12 @@ export default {
                 this.CategoryList = response.data;
             })
             .catch((error) => {
-                console.error('Error fetching categories:', error);
+                // console.error('Error fetching categories:', error);
+                // console.log(error.response.status);
+                if(error && error.response.status === 401){
+                    this.authStore.logout();
+                    this.$router.push({ name: 'Login' });
+                }
             });
         }
     },
