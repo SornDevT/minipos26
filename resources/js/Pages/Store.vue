@@ -149,7 +149,7 @@
 <script>
 import { useAuthStore } from '../Stores/Auth';
 import axios from 'axios';
-import Cleave from 'vue-cleave-component';
+
 
 export default {
     setup() {
@@ -188,9 +188,6 @@ export default {
                   delimiter: ','
                 }
         }
-    },
-    components: {
-        Cleave,
     },
     computed: {
         isFormvalidate() {

@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\TransectionController;
+use App\Http\Controllers\Api\BillController;
 
 Route::post('/login', [UserController::class, 'login']);
 Route::get('/logout', [UserController::class, 'logout']);
@@ -27,3 +29,12 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/products/update/{id}', [ProductController::class, 'update']);
     Route::delete('/products/delete/{id}', [ProductController::class, 'destroy']);
 });
+
+// group routes for transaction
+Route::middleware('auth:api')->group(function () {
+    // Transaction routes can be added here
+    Route::post('/pos/pay', [TransectionController::class, 'pay']);
+    Route::get('/bill/print/{bill_id}', [BillController::class, 'printBill']); 
+});
+
+

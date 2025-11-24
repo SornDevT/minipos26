@@ -12,6 +12,8 @@ import 'vue3-perfect-scrollbar/style.css';
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
+import Cleave from 'vue-cleave-component';
+
 const pinia = createPinia();
 
 const app = createApp(App);
@@ -19,6 +21,7 @@ app.use(PerfectScrollbarPlugin);
 app.component('sidebar', Sidebar);
 app.use(router);
 app.use(pinia);
+app.component('cleave', Cleave);
 app.component('Pagination', Pagination);
 app.use(VueSweetalert2);
 app.mount('#app-vue');
