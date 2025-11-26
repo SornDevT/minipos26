@@ -13,6 +13,49 @@ class TransectionController extends Controller
 {
     //
 
+    public function index()
+    {
+
+        $perPage = \Request::get('perPage', 10);
+        $sort = \Request::get('sort', 'asc');
+        $search = \Request::get('search', '');
+        $month_type = \Request::get('month_type', 'm');
+        $dmy = \Request::get('dmy', null);
+
+
+        $query = Transection::query();
+
+        if (!empty($search)) {
+            // search multiple columns
+            $query->where(function($q) use ($search) {
+                $q->where('TranID', 'like', '%' . $search . '%')
+                  ->orWhere('TranType', 'like', '%' . $search . '%')
+                  ->orWhere('Detail', 'like', '%' . $search . '%')
+                  ->orWhere('Price', 'like', '%' . $search . '%');
+            });
+        }
+
+        $month = explode('-', $dmy)[1];
+        $year = explode('-', $dmy)[0];
+
+        if($month_type == "m"){
+
+            $query->whereMonth('created_at', $month)
+                  ->whereYear('created_at', $year);
+
+        } else if($month_type == "y"){
+
+            $query->whereYear('created_at', $year);
+
+        } 
+        
+
+        $transections = $query->orderBy('created_at', $sort)->paginate($perPage);
+
+        return response()->json($transections, 200);
+    }
+
+
     public function pay(Request $request)
     {
 
@@ -39,7 +82,7 @@ class TransectionController extends Controller
                     $transection->TranType = 'income';
                     $transection->ProductID = $order['id'];
                     $transection->Qty = $order['Qty'];
-                    $transection->Price = $order['PriceSell'];
+                    $transection->Price = $order['PriceSell']*$order['Qty'];
                     $transection->Detail = $order['ProductName'];
                     $transection->save();
 

@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\TransectionController;
 use App\Http\Controllers\Api\BillController;
+use App\Http\Controllers\Api\ReportController;
 
 Route::post('/login', [UserController::class, 'login']);
 Route::get('/logout', [UserController::class, 'logout']);
@@ -35,6 +36,8 @@ Route::middleware('auth:api')->group(function () {
     // Transaction routes can be added here
     Route::post('/pos/pay', [TransectionController::class, 'pay']);
     Route::get('/bill/print/{bill_id}', [BillController::class, 'printBill']); 
+    Route::get('/transection', [TransectionController::class, 'index']);
+    Route::get('/report', [ReportController::class, 'index']);
 });
 
 
